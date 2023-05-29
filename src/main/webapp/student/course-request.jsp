@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="dao.CourseDao"%>
 <%@page import="vo.Student"%>
 <%@page import="vo.Course"%>
@@ -28,11 +29,11 @@
 
 	if ("STUDENT".equals(loginType)) {
 		RegistrationDao regDao = new RegistrationDao();
-		Registration savedReg = regDao.getRegById(loginId);
-		if (savedReg == null) {
+		List<Registration> regList = regDao.getRegsById(loginId);
+		if (regList.size() == 0) {
 			CourseDao courseDao = new CourseDao();
 			Course savedCourse = courseDao.getCourseByNo(no);
-			if (savedCourse.getQuota() == savedCourse.getReqCnt()) {
+			if (savedCourse.getQuota() <= savedCourse.getReqCnt()) {
 				response.sendRedirect("course-registration-list.jsp?err=quota");
 				return;
 			}
@@ -43,10 +44,14 @@
 			return;
 		}
 		
-		if (no == savedReg.getCourse().getNo()) {
-			response.sendRedirect("course-registration-list.jsp?err=req");
-			return;
-		}
+		// 중복 수강 체크
+	 	for (Registration savedReg : regList) {
+	 		if (no == savedReg.getCourse().getNo()) {
+	 			response.sendRedirect("course-registration-list.jsp?err=req");
+				return;
+	 		}
+	 	}
+		// 정원 초과 체크
 		CourseDao courseDao = new CourseDao();
 		Course savedCourse = courseDao.getCourseByNo(no);
 		if (savedCourse.getQuota() <= savedCourse.getReqCnt()) {
