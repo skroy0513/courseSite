@@ -1,3 +1,5 @@
+<%@page import="vo.Registration"%>
+<%@page import="dao.RegistrationDao"%>
 <%@page import="vo.Course"%>
 <%@page import="dao.CourseDao"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
@@ -9,6 +11,15 @@
 
 	CourseDao courseDao = CourseDao.getInstance();
 	Course course = courseDao.getCourseByNo(no);
+	
+	boolean isAlreadyRegistered = false;
+	if (loginId != null) {
+		RegistrationDao regDao = new RegistrationDao();
+		Registration reg = regDao.getRegByCourseAndStudent(no, loginId);
+		if (reg != null) {
+			isAlreadyRegistered = true;
+		}
+	}
 %>
 <!doctype html>
 <html lang="ko">
@@ -70,7 +81,7 @@
 	<div class="row mb-3">
 		<div class="col-12 text-end">
 <%
-	if (loginId != null && "STUDENT".equals(loginType)) {
+	if ("STUDENT".equals(loginType) && !isAlreadyRegistered) {
 %>
 			<a href="course-request.jsp?no=<%=course.getNo() %>" class="btn btn-success btn-sm <%=course.getReqCnt() == course.getQuota() ? "disabled" : "" %>">수강신청</a>
 <%

@@ -80,8 +80,11 @@
 				</tbody>
 			</table>
 		</div>
+		<div class="text-end">
+			<a href="course-form.jsp" class="btn btn-primary btn-sm">강좌 등록</a>
+		</div>
 	</div>
-	<div class="row mb-3">
+	<!-- <div class="row mb-3">
 		<div class="col-12">
 			<nav>
 				<ul class="pagination justify-content-center">
@@ -94,11 +97,8 @@
 					<li class="page-item"><a class="page-link" href="course-list.jsp?page=2">다음</a></li>
 				</ul>
 			</nav>
-			<div class="text-end">
-				<a href="course-form.jsp" class="btn btn-primary btn-sm">강좌 등록</a>
-			</div>
 		</div>
-	</div>
+	</div> -->
 </div>
 </body>
 </html>

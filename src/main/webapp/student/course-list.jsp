@@ -64,7 +64,7 @@
 			</table>
 		</div>
 	</div>
-	<div class="row mb-3">
+	<!-- <div class="row mb-3">
 		<div class="col-12">
 			<nav>
 				<ul class="pagination justify-content-center">
@@ -78,7 +78,7 @@
 				</ul>
 			</nav>
 		</div>
-	</div>
+	</div> -->
 </div>
 </body>
 </html>

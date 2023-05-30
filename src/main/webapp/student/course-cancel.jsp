@@ -14,12 +14,17 @@
 		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("수강신청취소", "utf-8"));
 		return;
 	}
+	if (!"STUDENT".equals(loginType)) {
+		response.sendRedirect("../home.jps?err=dedy&job=" + URLEncoder.encode("수강신청취소", "utf-8"));
+		return;
+	}
 	
 	int no = Integer.parseInt(request.getParameter("regNo"));
 	// 업무로직 수행
 	// 수강정보 불러오기
 	RegistrationDao regDao = new RegistrationDao();
 	Registration savedReg = regDao.getRegByNo(no);
+	// 수강취소하기
 	savedReg.setStatus("수강취소");
 	regDao.updateRegByNo(savedReg);
 	// 신청자수 업데이트

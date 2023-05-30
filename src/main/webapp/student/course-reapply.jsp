@@ -11,7 +11,11 @@
 	String loginType = (String) session.getAttribute("loginType");
 	String err = request.getParameter("err");
 	if (loginId == null) {
-		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("수강신청취소", "utf-8"));
+		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("과정 재신청", "utf-8"));
+		return;
+	}
+	if (!"STUDENT".equals(loginType)) {
+		response.sendRedirect("../home.jps?err=dedy&job=" + URLEncoder.encode("과정 재신청", "utf-8"));
 		return;
 	}
 	

@@ -23,17 +23,17 @@ public class RegistrationDao {
 			reg.setStatus(rs.getString("reg_status"));
 			
 			Course course = new Course();
+			course.setNo(rs.getInt("course_no"));
+			course.setName(rs.getString("course_name"));
 			
 			Professor professor = new Professor();
 			professor.setName(rs.getString("professor_name"));
+			course.setProfessor(professor);
 			
 			Dept dept = new Dept();
 			dept.setName(rs.getString("dept_name"));
-			
-			course.setNo(rs.getInt("course_no"));
-			course.setName(rs.getString("course_name"));
 			course.setDept(dept);
-			course.setProfessor(professor);
+			
 			reg.setCourse(course);
 
 			return reg;
@@ -88,5 +88,19 @@ public class RegistrationDao {
 	
 	public void updateRegByNo(Registration reg) {
 		DaoHelper.update("regDao.updateRegByNo", reg.getStatus(), reg.getNo());
+	}
+	
+	public Registration getRegByCourseAndStudent(int courseNo, String id) {
+		return DaoHelper.selectOne("regDao.getRegByCourseAndStudent", rs -> {
+			Registration reg = new Registration();
+			reg.setNo(rs.getInt("reg_no"));
+			reg.setCourse(new Course(rs.getInt("course_no")));
+			reg.setStudent(new Student(rs.getString("student_id")));
+			reg.setStatus(rs.getString("reg_status"));
+			reg.setUpdateDate(rs.getDate("reg_update_date"));
+			reg.setCreateDate(rs.getDate("reg_create_date"));
+			
+			return reg;
+		}, courseNo, id);
 	}
 }
