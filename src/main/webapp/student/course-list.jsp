@@ -3,7 +3,7 @@
 <%@page import="dao.CourseDao"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
-	CourseDao courseDao = new CourseDao();
+	CourseDao courseDao = CourseDao.getInstance();
 	List<Course> courseList = courseDao.getAllCourses();
 %>
 <!doctype html>
@@ -50,11 +50,11 @@
 %>
 					<tr class="align-middle">
 						<td><%=course.getNo() %></td>
-						<td><%=course.getName() %></td>
+						<td><%=course.getName() %><%=course.getReqCnt() == course.getQuota() ? "<span class='badge ms-3 text-bg-danger'>모집완료</span>" : "" %></td>
 						<td><%=course.getDept().getName() %></td>
 						<td><%=course.getProfessor().getName() %></td>
 						<td><%=course.getQuota() %></td>
-						<td><%=course.getReqCnt() %></td>
+						<td><span class="<%=course.getReqCnt() == course.getQuota() ? "text-danger fw-bolder" : "" %>"><%=course.getReqCnt() %></span></td>
 						<td><a href="course-detail.jsp?no=<%=course.getNo() %>" class="btn btn-outline-dark btn-xs">상세정보</a></td>
 					</tr>
 <%

@@ -109,42 +109,6 @@
 		}
 	}
 %>
-					<!-- <tr class="align-middle">
-						<td>1000</td>
-						<td>2000</td>
-						<td>웹 애플리케이션 기초</td>
-						<td>컴퓨터공학과</td>
-						<td>홍길동</td>
-						<td><span class="badge text-bg-secondary">수강취소</span></td>
-						<td>
-							<a href="course-detail.jsp?cno=1000" class="btn btn-outline-dark btn-xs">상세정보</a>
-							<a href="course-reapply.jsp?regNo=2000" class="btn btn-primary btn-xs">재신청</a>
-						</td>
-					</tr>
-					<tr class="align-middle">
-						<td>1000</td>
-						<td>2000</td>
-						<td>웹 애플리케이션 기초</td>
-						<td>컴퓨터공학과</td>
-						<td>홍길동</td>
-						<td><span class="badge text-bg-success">신청완료</span></td>
-						<td>
-							<a href="course-detail.jsp?cno=1000" class="btn btn-outline-dark btn-xs">상세정보</a>
-							<a href="course-cancel.jsp?regNo=2000" class="btn btn-outline-danger btn-xs">수강취소</a>
-						</td>
-					</tr>
-					<tr class="align-middle">
-						<td>1000</td>
-						<td>2000</td>
-						<td>웹 애플리케이션 기초</td>
-						<td>컴퓨터공학과</td>
-						<td>홍길동</td>
-						<td><span class="badge text-bg-success">신청완료</span></td>
-						<td>
-							<a href="course-detail.jsp?no=1000" class="btn btn-outline-dark btn-xs">상세정보</a>
-							<a href="course-cancel.jsp?regNo=2000" class="btn btn-outline-danger btn-xs">수강취소</a>
-						</td>
-					</tr> -->
 				</tbody>
 			</table>
 		</div>

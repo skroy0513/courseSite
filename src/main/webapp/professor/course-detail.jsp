@@ -19,7 +19,7 @@
 	// 요청 파라미터 조회
 	int no = Integer.parseInt(request.getParameter("no"));
 	// 정보 가져오기
-	CourseDao courseDao = new CourseDao();
+	CourseDao courseDao = CourseDao.getInstance();
 	Course course = courseDao.getCourseByNo(no);
 	// 과정번호로 수강생 정보 가져오기
 	RegistrationDao regDao = new RegistrationDao();

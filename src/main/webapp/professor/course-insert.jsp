@@ -9,7 +9,6 @@
 	// 오류 파악
 	String loginType = (String) session.getAttribute("loginType");
 	String loginId = (String) session.getAttribute("loginId");
-	System.out.println(loginType);
 	
 	if (loginId == null) {
 		response.sendRedirect("../loginform.jsp?err=req&job=" + URLEncoder.encode("과정등록", "utf-8"));
@@ -28,7 +27,7 @@
 	String description = request.getParameter("description");
 	
 	// 업무로직수행
-	CourseDao courseDao = new CourseDao();
+	CourseDao courseDao = CourseDao.getInstance();
 	
 	Course course = new Course();
 	course.setName(name);

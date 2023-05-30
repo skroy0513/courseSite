@@ -23,7 +23,7 @@
 	savedReg.setStatus("수강취소");
 	regDao.updateRegByNo(savedReg);
 	// 신청자수 업데이트
-	CourseDao courseDao = new CourseDao();
+	CourseDao courseDao = CourseDao.getInstance();
  	Course savedCourse = courseDao.getCourseByNo(savedReg.getCourse().getNo());
  	courseDao.updateCourse(savedCourse);
 	

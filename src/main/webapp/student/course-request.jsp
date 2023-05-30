@@ -23,45 +23,48 @@
 		return;
 	}
 	
-	Registration reg = new Registration();
-	reg.setCourse(new Course(no));
-	reg.setStudent(new Student(loginId));
 
-	if ("STUDENT".equals(loginType)) {
-		RegistrationDao regDao = new RegistrationDao();
-		List<Registration> regList = regDao.getRegsById(loginId);
-		if (regList.size() == 0) {
-			CourseDao courseDao = new CourseDao();
-			Course savedCourse = courseDao.getCourseByNo(no);
-			// 정원 초과 체크
-			if (savedCourse.getQuota() <= savedCourse.getReqCnt()) {
-				response.sendRedirect("course-registration-list.jsp?err=quota");
-				return;
-			}
-			regDao.insertReg(reg);
-			
-			courseDao.updateCourse(savedCourse);
-			response.sendRedirect("course-registration-list.jsp");
-			return;
-		}
-		
-		// 중복 수강 체크
-	 	for (Registration savedReg : regList) {
-	 		if (no == savedReg.getCourse().getNo()) {
-	 			response.sendRedirect("course-registration-list.jsp?err=req");
-				return;
-	 		}
-	 	}
+	RegistrationDao regDao = new RegistrationDao();
+	List<Registration> regList = regDao.getRegsById(loginId);
+	CourseDao courseDao = CourseDao.getInstance();
+	Course savedCourse = courseDao.getCourseByNo(no);
+	
+	Registration reg = new Registration();
+	reg.setCourse(savedCourse);
+	reg.setStudent(new Student(loginId));
+	
+	// 처음 등록하는 경우
+	if (regList.size() == 0) {
 		// 정원 초과 체크
-		CourseDao courseDao = new CourseDao();
-		Course savedCourse = courseDao.getCourseByNo(no);
 		if (savedCourse.getQuota() <= savedCourse.getReqCnt()) {
 			response.sendRedirect("course-registration-list.jsp?err=quota");
 			return;
 		}
+		// 수강신청 정보 저장
 		regDao.insertReg(reg);
+		// 신청자수 업데이트
 		courseDao.updateCourse(savedCourse);
+		// 재요청 URL 응답
+		response.sendRedirect("course-registration-list.jsp");
+		return;
 	}
+	
+	// 중복 수강 체크
+ 	for (Registration savedReg : regList) {
+ 		if (no == savedReg.getCourse().getNo()) {
+ 			response.sendRedirect("course-registration-list.jsp?err=req");
+			return;
+ 		}
+ 	}
+	// 정원 초과 체크
+	if (savedCourse.getQuota() <= savedCourse.getReqCnt()) {
+		response.sendRedirect("course-registration-list.jsp?err=quota");
+		return;
+	}
+	// 수강신청 정보 저장
+	regDao.insertReg(reg);
+	// 신청자수 업데이트
+	courseDao.updateCourse(savedCourse);
 	
 	// 재요청 URL 응답
 	response.sendRedirect("course-registration-list.jsp");

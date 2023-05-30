@@ -12,7 +12,7 @@
 		return;
 	}
 	// 과정 목록 불러오기
-	CourseDao courseDao = new CourseDao();
+	CourseDao courseDao = CourseDao.getInstance();
 	List<Course> courseList = courseDao.getCourses(loginId);
 %>
 <!doctype html>

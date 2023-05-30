@@ -9,6 +9,14 @@ import vo.Professor;
 
 public class CourseDao {
 	
+	private static CourseDao instance = new CourseDao();
+	
+	private CourseDao() {}
+	
+	public static CourseDao getInstance() {
+		return instance;
+	}
+	
 	public List<Course> getAllCourses() {
 		return DaoHelper.selectList("courseDao.getAllCourses", rs -> {
 			Course course = new Course();
@@ -81,13 +89,15 @@ public class CourseDao {
 			course.setDescription(rs.getString("course_description"));
 			course.setCreateDate(rs.getDate("course_create_date"));
 			course.setUpdateDate(rs.getDate("course_update_date"));
+			
 			Dept dept = new Dept();
 			dept.setName(rs.getString("dept_name"));
 			dept.setNo(rs.getInt("dept_no"));
+			course.setDept(dept);
+			
 			Professor professor = new Professor();
 			professor.setId(rs.getString("professor_id"));
 			professor.setName(rs.getString("professor_name"));
-			course.setDept(dept);
 			course.setProfessor(professor);
 			
 			return course;

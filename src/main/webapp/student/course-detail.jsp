@@ -7,7 +7,7 @@
 	
 	int no = Integer.parseInt(request.getParameter("no"));
 
-	CourseDao courseDao = new CourseDao();
+	CourseDao courseDao = CourseDao.getInstance();
 	Course course = courseDao.getCourseByNo(no);
 %>
 <!doctype html>
@@ -72,7 +72,7 @@
 <%
 	if (loginId != null && "STUDENT".equals(loginType)) {
 %>
-			<a href="course-request.jsp?no=<%=course.getNo() %>" class="btn btn-success btn-sm">수강신청</a>
+			<a href="course-request.jsp?no=<%=course.getNo() %>" class="btn btn-success btn-sm <%=course.getReqCnt() == course.getQuota() ? "disabled" : "" %>">수강신청</a>
 <%
 	}
 %>
