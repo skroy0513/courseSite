@@ -9,8 +9,11 @@
 	String type = request.getParameter("type");
 	String id = request.getParameter("id");
 	String password = request.getParameter("password");
-	
 	// 업무로직 수행
+	if (id == null || password == null) {
+		response.sendRedirect("loginform.jsp?err=id");
+		return;
+	}
 	// 학생일때
 	if (type.equals("STUDENT")) {
 		StudentDao studentDao = new StudentDao();

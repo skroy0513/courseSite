@@ -33,6 +33,7 @@
 		if (regList.size() == 0) {
 			CourseDao courseDao = new CourseDao();
 			Course savedCourse = courseDao.getCourseByNo(no);
+			// 정원 초과 체크
 			if (savedCourse.getQuota() <= savedCourse.getReqCnt()) {
 				response.sendRedirect("course-registration-list.jsp?err=quota");
 				return;

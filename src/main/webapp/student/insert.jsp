@@ -12,13 +12,6 @@
 	String name = request.getParameter("name");
 	
 	// 업무로직수행
-	// 학생정보 저장
-	Student student = new Student();
-	student.setId(id);
-	student.setPassword(password);
-	student.setName(name);
-	student.setGrade(grade);
-	student.setDept(new Dept(deptNo));
 	
 	// 학생 아이디 중복 체크
 	StudentDao studentDao = new StudentDao();
@@ -26,6 +19,13 @@
 		response.sendRedirect("form.jsp?err=id");
 		return;
 	}
+	// 학생정보 저장
+	Student student = new Student();
+	student.setId(id);
+	student.setPassword(password);
+	student.setName(name);
+	student.setGrade(grade);
+	student.setDept(new Dept(deptNo));
 	
 	// 학생 정보 데이터베이스 저장
 	studentDao.insertStudent(student);
